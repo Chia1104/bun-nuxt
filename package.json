@@ -7,10 +7,11 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "bun run .output/server/index.mjs"
+    "start": "bun run --bun .output/server/index.mjs"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "bun-types": "^1.0.1",
     "nuxt": "^3.7.1"
   }
 }
