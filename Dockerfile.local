@@ -1,0 +1,28 @@
+FROM --platform=amd64 oven/bun:latest as runner
+
+FROM --platform=amd64 node:18-slim as builder
+
+WORKDIR /app
+
+COPY . .
+COPY --from=runner /usr/local/bin/bun /usr/local/bin
+COPY --from=runner /usr/local/bin/bunx /usr/local/bin
+
+ENV NITRO_PRESET=bun
+
+RUN bun install && \
+    bun run build
+
+FROM runner    
+
+WORKDIR /app
+
+COPY --from=builder /app/.output ./.output
+
+ENV PORT=8080 \
+    RUNTIME_ENV=bun \
+    NITRO_PRESET=bun
+
+EXPOSE 8080        
+
+CMD ["bun", "run", "--bun", ".output/server/index.mjs"]

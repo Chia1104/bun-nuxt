@@ -2,7 +2,7 @@
   "name": "bun-nuxt",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "NITRO_PRESET=bun nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -13,5 +13,7 @@
     "@nuxt/devtools": "latest",
     "bun-types": "^1.0.1",
     "nuxt": "^3.7.1"
-  }
+  },
+  "type": "module",
+  "module": ".output/server/index.mjs"
 }

@@ -1,16 +1,22 @@
 <script setup lang="ts">
-const getServerRuntime = () => {
-  try {
-    return Bun.env.RUNTIME_ENV
-  } catch (e: any) {
-    return `node (ERROR: ${e.message})`
-  }
-}
+const { data } = await useFetch<{
+  serverRuntime: string
+  password: string
+}>('/api/bun')
 </script>
 
 <template>
   <div>
-    <!-- <NuxtWelcome /> -->
-    {{ getServerRuntime() }}
+    <code>
+        <pre>
+        <span>Server Runtime: {{ data?.serverRuntime }}</span>
+      </pre>
+        <pre>
+        <span>Hashed Password: {{ data?.password }}</span>
+      </pre>
+        <pre>
+        <span>Current Date: {{ new Date().toISOString }}</span>
+      </pre>
+      </code>
   </div>
 </template>
